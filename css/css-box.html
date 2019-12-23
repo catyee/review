@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    #box{
+        height: 600px;
+        width: 300px;
+        background-color: aqua;
+    }
+</style>
+<body>
+    <div id="box"></div>
+</body>
+<script>
+    // 盒子模型 1.标准盒子模型 content+padding+border+margin 宽高content 设置：box-sizing:content-box; 2.ie盒子模型 content +padding+border+margin 宽高content+padding+border宽高 设置:box-sizing:border-box;
+    var box =  document.getElementById('box');
+    var height =box.style.height; // 获取的仅为内联样式
+    console.log(height,'height');
+    var width = box.currentStyle.width;
+    console.log(width);
+</script>
+</html>
