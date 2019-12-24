@@ -19,7 +19,7 @@
         /* 没有加overflow:hidden的时候父边距和子边距重叠了，父的高度只有100，加了overflow:hiddem,父元素成了新的BFC就解决了边距重叠的现象，margin-top没有塌陷进去，所以父的高度是110 */
     }
 
-    .child {
+    /* .child {
         height: 100px;
         margin-top: 10px;
         background: yellow;
@@ -27,15 +27,63 @@
     .left{
       height: 100px;
       margin-bottom: 50px;
-      background-color: red;
-    }
+      background-color: red; */
+    /* } */
+
     /* left和right的上下边距是50而不是90，取了最大值，若为负值则取绝对值最大的，若一正一负，则取两者的和 */
-    .right{
+    /* .right{
       height:100px;
       background-color: blue;
       margin-top: 40px;
+    } */
+    /* 自适应两列布局 */
+    .left {
+        width: 100px;
+        float: left;
+        height: 100px;
+        background-color: yellow;
     }
 
+    .right {
+        height: 150px;
+        background-color: red;
+        overflow: hidden;
+    }
+
+    /* 清除内部浮动 */
+    .par {
+        border: 5px solid red;
+        width: 1000px;
+        /* 生成BFC，把浮动元素的高度计算在内，变相地清除了内部浮动 */
+        overflow: hidden;
+    }
+
+    .child {
+        border: 5px solid blue;
+        float: left;
+        height: 100px;
+        width: 100px;
+    }
+
+    /* <!-- 防止边距重叠（BFC中子元素边距重叠） --> */
+    /* 两个div 中间取了最大值40为重叠了，在p外面包裹一层容器，并触发该容器生成一个
+BFC。那么两个P便不属于同一个BFC，就不会发生margin重叠了. */
+
+    .wrap {
+        overflow: hidden;
+    }
+
+    .top {
+        height: 100px;
+        margin-bottom: 40px;
+        background-color: red;
+    }
+
+    .bottom {
+        height: 100px;
+        margin-top: 30px;
+        background-color: blue;
+    }
 </style>
 
 <body>
@@ -46,11 +94,27 @@
     <div class="right"></div> -->
 
     <!-- 如果存在一个空的块级元素，border,padding,inline content height min-height都不存在，那么上下边距居中将没有任何阻碍，上下边距将合并，取值规则同2一样 -->
-    <p style="margin-bottom: 0px;">这个段落的和下面段落的距离将为20px</p>
+    <!-- <p style="margin-bottom: 0px;">这个段落的和下面段落的距离将为20px</p>
 
     <div style="margin-top: 20px; margin-bottom: 50px;">333</div>
   
-    <p style="margin-top: 0px;">这个段落的和上面段落的距离将为50px</p>
+    <p style="margin-top: 0px;">这个段落的和上面段落的距离将为50px</p> -->
+
+    <!-- 自适应两列布局 -->
+    <!-- <div class="left"></div>
+    <div class="right"></div> -->
+
+    <!-- 清除内部浮动 -->
+    <div class="par">
+        <div class="child"></div>
+        <div class="child"></div>
+    </div>
+
+    <!-- 防止边距重叠（BFC中子元素边距重叠） -->
+    <p class="top"></p>
+    <div class="wrap">
+        <p class="bottom"></p>
+    </div>
 </body>
 <script>
     // BFC边距重叠问题
@@ -59,6 +123,7 @@
 
     // 2.相邻兄弟姐妹元素
     // 3.空块元素
-        
+
 </script>
+
 </html>

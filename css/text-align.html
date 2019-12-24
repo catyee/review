@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .text1 {
+        width: 300px;
+        /* height: 100px; */
+        margin: 50px auto;
+        border: 1px solid red;
+        line-height: 100px;
+        text-align: center;
+    }
+
+    .wrap {
+        width: 400px;
+        height: 200px;
+        margin: 50px auto;
+        border: 1px solid red;
+        display: table;
+    }
+
+    .text2 {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        /*设置文本水平居中*/
+        width: 100%;
+    }
+</style>
+
+<body>
+    <div class="text1">这里是单行文本垂直居中</div>
+    <div class="wrap">
+        <div class="text2">
+            这是固定高度多行文本垂直居中，
+            这是固定高度多行文本垂直居中，
+            这是固定高度多行文本垂直居中，
+            这是固定高度多行文本垂直居中。
+        </div>
+    </div>
+</body>
+
+</html>

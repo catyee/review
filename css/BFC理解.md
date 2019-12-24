@@ -1,3 +1,12 @@
 ###### BFC 块级格式化上下文 是一个独立容器，决定了元素如何对其内容进行定位以及与其他元素的关系和相互作用
 - BFC布局规则
-    - 
+    - 每个元素的margin box的左边与包含块border box的左边相接触，即使浮动也如此
+    - BFC区域不会与float box重叠
+    - BFC是一个隔离的独立的容器，容器里面的子元素不会影响到外面的元素，反之亦然
+    - 计算BFC高度的时候，浮动元素也参与计算
+- 哪些元素生成BFC
+    - overflow:不为visible
+    - position:absoluted,fixed
+    - float:不为none
+    - 根元素
+    - display:inline-block\table-cell\table-captiobn\flex\inline-flex
