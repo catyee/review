@@ -1,0 +1,2 @@
+- 行内元素flex布局 diaplay:inline-flex;
+- flex布局以后子元素的float clear vertical-align属性将失效

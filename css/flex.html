@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .parent{
+            width: 1000px;
+            border: 10px solid greenyellow;
+            height: 600px;
+            margin: 50px auto;
+            display: flex;
+            /* 定义子元素如何沿着主轴方向排列 */
+            /* 位置排列:flex-start,flex-end,center */
+            /* 分布排列: space-around子容器沿主轴均匀分布，首尾两端距离是子容器间距的一半,space-between均匀分布，首尾两端与父容器没有距离 */
+            justify-content: space-around; 
+
+            /* 定义子容器如何沿交叉轴排列
+                flex-start起始端对齐
+                flex-end末尾端对齐
+                center居中对齐
+                baseline基线对齐，首行文字
+                stretch 如果项目未设置高度或设为auto，子容器沿交叉轴方向的尺寸拉伸至与父容器一致
+             */
+            align-items: flex-start;
+
+
+            /* 轴 flex-direction决定主轴的方向，交叉轴垂直于主轴 */
+            /* 主轴向右 */
+            /* flex-direction: row; */
+             /* 主轴向左 */
+            /* flex-direction: row-reverse; */
+            /* 主轴向下 */
+            flex-direction: row;
+             /* 主轴向上
+             flex-direction: colum-reverse; */
+
+             /* 换行方式 nowrap wrap wrap-reverse */
+             flex-wrap: wrap;
+
+             /* 轴向与换行组合设置相当于flex-direction与flex-wrap的组合 */
+             flex-flow: row wrap;
+
+
+             /* 多行沿交叉轴对齐 align-content，当子容器多行排列时设置行与行之间的对齐方式*/
+             align-content: space-around;
+        }
+        .child{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            margin: 10px;
+            /* 
+                子容器
+                在主轴上如何伸缩flex
+                flex的值可以是无单位的数字如1，2，3，也可以是有单位的数字如12px，也可以是none关键字，子容器会按照flex定义的尺寸比例自动伸缩，如果取值为none则不伸缩，flex是多个属性的缩写 flex-basis flex-grow flex-shrink
+             */
+         
+            /* flex-basis表示在不伸缩的情况下子容器的原始尺寸，主轴为横向时表示宽度，主轴为纵向时表示高度 */
+            /* flex-grow 子容器弹性伸展的比例，剩余空间按照一定的比例给子容器  扩展比例 扩展比例 扩展比例 */
+            /* flex-shrink 子容器收缩的比例  */
+            /* order改变子容器的排列顺序 数值越小排列越靠前 */
+
+           
+
+        }
+        .child3{
+             /* 单独设置子容器如何沿交叉轴排列 algin-self */
+             align-self: flex-start;
+             /* flex-basis: 300px; */
+             /* flex-grow: 2; */
+             flex-shrink: 2;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="parent">
+        <div class="child" ></div>
+        <div class="child"></div>
+        <div class="child child3"></div>
+        <div class="child"></div>
+        <div class="child"></div>
+        <div class="child"></div>
+        <div class="child"></div>
+        <div class="child"></div>
+        <div class="child"></div>
+        <div class="child"></div>
+        <div class="child"></div>
+        <div class="child"></div>
+        <div class="child"></div>
+        <div class="child"></div>
+    </div>
+</body>
+</html>
