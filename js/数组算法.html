@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组去重和数组排序</title>
+</head>
+<body>
+
+</body>
+<script>
+        // 数组去重
+        var arr = [6,999,0,0,4,2,3,2,6,999,6,1];
+        function uniqueArray1 (arr) {
+            let obj = {};
+            let newArr = [];
+            arr.forEach((item,index) =>{
+                if(!obj[item]) {
+                    obj[item] = 1;
+                    newArr.push(item);
+                }
+            })
+            return newArr;
+        }
+      //  console.log(uniqueArray1(arr),'okokok')
+
+        // 存在兼容性问题与forEach兼容性一致
+        function uniqueArray2(arr) {
+            var newArr = [];
+            arr.forEach((item) => {
+                if(!newArr.includes(item)){
+                    newArr.push(item);
+                }
+            })
+            return newArr;
+        }
+        //console.log(uniqueArray2(arr),'okokok22222222')
+
+
+        // es6 set
+        function uniqueArray3(arr){
+            return Array.from(new Set(arr));
+           // [...new Set(arr)]
+        }
+      
+       // console.log(uniqueArray3(arr,33333333333333))
+
+       function uniqueArray4(arr){
+           for(var i = 0; i< arr.length;i++){
+               for(var j = i + 1; j<arr.length;j++){
+                   if(arr[i] == arr[j]){
+                       arr.splice(j,1);
+                       j--;
+                   }
+               }
+           }
+           return arr;
+       }
+      // console.log(uniqueArray4(arr),4444444444)
+      function uniqueArray5(arr){
+          var newArr = [];
+          for(var i = 0; i< arr.length;i++){
+              if(newArr.indexOf(arr[i])===-1){
+                  newArr.push(arr[i]);
+              }
+          }
+          return newArr;
+      }
+      //console.log(uniqueArray5(arr),555555555555)
+      function uniqueArray6(arr){
+          arr = arr.sort();
+          var newArr = [arr[0]];
+          for(var i = 1; i < arr.length; i++){
+            if(arr[i] !== arr[i - 1]){
+                newArr.push(arr[i]);
+            }
+          }
+          return newArr;
+      }
+     // console.log(uniqueArray6(arr),66666666);
+      function uniqueArray7(arr){
+          var obj = {};
+          return arr.filter(function(item,index){
+              return obj.hasOwnProperty(typeof item + item)?false:(obj[typeof item+item]=true)
+          })
+      }
+
+      function uniqueArray8(arr){
+          return arr.filter(function(item,index){
+                // 当前元素在原始数组中的第一个索引等于当前索引值，返回当前元素
+                return arr.indexOf(item,0) === index;
+          })
+      }
+      function uniqueArray9(arr){
+          var newArr = arr;
+          var length = newArr.length;
+          newArr.sort(function(a,b){
+                return a - b;
+          });
+          function loop(index){
+              if(index > 1) {
+                  if(newArr[index] === newArr[index -1]){
+                      newArr.splice(index,1);
+                  }
+                  loop(index -1);
+              }
+          }
+          loop(length-1);
+          return newArr;
+      }
+      function uniqueArray10(arr){
+          let map = new Map();
+          let array = new Array();
+          for(let i = 0; i<arr.length;i++){
+              if(map.has(arr[i])){
+                  map.set(arr[i],true);
+              }else{
+                  map.set(arr[i],false);
+                  array.push(arr[i]);
+              }
+          }
+          return array;
+      }
+
+
+
+      // 数组排序
+      
+      // 1.冒泡排序
+      //1.比较相邻的元素，如果第一个比第二个大，就交换他们两个；
+      //2.对每一对相邻元素做同样的操作，从开始第一对到结尾的最后一对，这样在最后的元素就是最大的数
+      //3.针对所有的元素重复以上的步骤，除了最后一个
+      //4.重复步骤1-3直到排序结束
+      function bubbleSort(arr) {
+        var length = arr.length;
+        for(var i = 0; i < length; i++){
+            for(var j = 0; j < length-1-i;i++){
+                if(arr[j] > arr[j+1]){
+                    let tmp;
+                    tmp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = tmp;
+                }
+            }
+        }
+        return arr;
+      }
+
+</script>
+</html>
