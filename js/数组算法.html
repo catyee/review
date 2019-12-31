@@ -147,5 +147,56 @@
         return arr;
       }
 
+      // 选择排序
+      // 找到数组中的最小值，并将其放在第一位，然后找到第二小的值放在第二位...以此类推
+      function selectionSort(arr){
+          var length = arr.length;
+          for(var i = 0; i < length;i++){
+              let min = i;
+              for(var j = i; j < length;j++){
+                if(arr[j]<arr[min]){
+                    min = j;
+                }
+              }
+              if(min!==i){
+                  [arr[min],arr[i]] = [arr[i],arr[min]];
+              }
+          }
+          return arr;
+      }
+
+      // 插入排序
+      // 插入排序是从数组的第二项开始遍历数组的n-1项，遍历过程中对于当前项的左边数组项，依次从右到左进行对比，如果左边项大于或小于当前项，则左边项向右移动，然后继续对比前一项，直到找到不大于自身的选项位置，对于所有大于当前项的选项，都在原来位置的基础上向右移动了一项
+      function insertionSort(arr){
+          var length = arr.length;
+          for(let i = 0; i < length;i++){
+              let j = i;
+              let tmp = arr[i];
+              while(j > 0 && arr[j-1]>tmp){
+                arr[j] = arr[j -1];
+                j--;
+              }
+              arr[j] = tmp;
+          }
+          return arr;
+      }
+      // 快速排序
+      // 在数组中选取一个参考点，然后对于数组中的每一项，大于参考点的项放在数组的右边，小于参考点的项放在左边，左右两边的数组项可以构成两个新的数组，然后分别对左右两个数组进行分解，直到数组长度为1，最后合并
+
+      function quickSort(arr){
+          if(arr.length <= 1) {return arr;}
+          var pivotIndex = Math.floor(arr.length/2);
+          var pivot = arr.splice(pivotIndex,1)[0];
+          var left = [];
+          var right = [];
+          for(var i = 0; i < arr.length;i++){
+              if(arr[i] < pivot){
+                left.push(arr[i]);
+              }else{
+                  right.push(arr[i]);
+              }
+          }
+          return quickSort(left).concat([pivot],quickSort(right));
+      }
 </script>
 </html>
