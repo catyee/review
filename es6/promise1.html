@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // promise是一个在将来某个时刻产生一个单一结果的对象，通俗来说promise代表了一个值，但是这个值我们并不确定什么时候会被返回。
+    // promise有三种状态: fullfilled，rejected，pending
+
+    //实现一个promise
+    // 规范:
+    // 1. Promise有一个then函数
+    // 2.pending的Promise可以进入fullfilled和rejected状态
+    // 3. Promise一旦进入fullfilled或rejected状态，不可再改变其状态
+    // 4. 一个Promise一旦改变了其状态，它一定有一个值，这个值也可能是undefined
+
+    // 第一版本：能保存回调方法 在then方法中，将fullfill和reject结果的回调函数保存下来，然后在异步方法中调用，因为是异步调用，根据event-loop的原理，  promiseAsyncFunc().then(fullfillCallback,rejectCallback);传入的callback在异步调用结束时一定是已经赋过值了。
+    var promiseAsyncFunc = function () {
+        var fullfillCallback, rejectCallback;
+        setTimeout(() => {
+            var randomNum = Math.random();
+            if (randomNum > 0.5) fullfillCallback(randomNum);
+            else rejectCallback(randomNum);
+        }, 1000);
+        return {
+            then: function (_fullfillCallback, _rejectCallback) {
+                fullfillCallback = _fullfillCallback;
+                rejectCallback = _rejectCallback;
+            }
+        }
+    }
+    // 调用
+    promiseAsyncFunc().then(fullfillCallback, rejectCallback);
+
+
+    // 第二版本:上述promise实现中，异步逻辑代码和Promise的代码是杂糅在一起的，我们将其区分开
+    var promiseAsyncFunc = function () {
+        var fullfillCallback, rejectCallback;
+        return {
+            fullfill: function (value) {
+                if (fullfillCallback && typeof fullfillCallback === 'function') {
+                    fullfillCallback(value);
+                }
+            },
+            reject: function (err) {
+                if (rejectCallback && typeof rejectCallback === 'function') {
+                    rejectCallback(err);
+                }
+            },
+            then: function (_fullfillCallback, _rejectCallback) {
+                fullfillCallback = _fullfillCallback;
+                rejectCallback = _rejectCallback;
+            }
+        }
+
+    }
+
+    // 调用
+    var ownPromise = function (asyncCall) {
+        let promise = promiseAsyncFunc();
+        asyncCall(promise.fullfill, promise.reject);
+        return promise;
+    }
+    ownPromise(function (fullfill, reject) {
+        setTimeout(() => {
+            var randomNum = Math.random();
+            if (randomNum > 0.5) fullfill(randomNum);
+            else reject(randomNum);
+        }, 1000)
+    })
+
+
+    // 第三版本: 支持状态管理
+    const PENDING = Symbol('pending');
+    const FULLFILLED = Symbol('fullfilled');
+    const REJECTED = Symbol('rejected');
+    var promiseAsyncFunc = function () {
+        var status = PENDING;
+        var fullfillCallback, rejectCallback;
+        return {
+            fullfill: function (value) {
+                if (status !== PENDING) return;
+                if (typeof fullfillCallback === 'function') {
+                    fullfillCallback(value);
+                    status = FULLFILLED;
+                }
+            },
+            reject: function (error) {
+                if (status !== PENDING) return;
+                if (typeof rejectCallback === 'function') {
+                    rejectCallback(error);
+                    status = REJECTED;
+                }
+            },
+            promise: {
+                then: function (_fullfillCallback, _rejectCallback) {
+                    fullfillCallback = _fullfillCallback;
+                    rejectCallback = _rejectCallback;
+                }
+            }
+        }
+    }
+    // 调用
+    let ownPromise = function (asyncCall) {
+        let defer = promiseAsyncFunc();
+        asyncCall(defer.fullfill, defer.reject);
+        return defer.promise;
+    }
+    ownPromise(function (fullfill, reject) {
+        setTimeout(() => {
+            var randomNumber = Math.random()
+            if (randomNumber > 0.5) fulfill(randomNumber)
+            else reject(randomNumber)
+        }, 1000);
+    }).then(data => console.log(data),err => console.log(err));
+
+    // 最终版
+    const PENDING = Symbol('pending');
+    const FULLFILLED = Symbol('fullfilled');
+    const REJECTED = Symbol('rejected');
+    function makeThenalbe(value,status) {
+        if(value && typeof value.then === 'function'){
+            return value;
+        }
+        if(status === FULLFILLED){
+            return {
+                then:function(fullfillCallback,rejectCallback) {
+                    try{
+                        let newValue = fullfillCallback(value);
+                        return makeThenalbe(newValue,FULLFILLED);
+                    }catch(e){
+                        return makeThenalbe(rejectCallback(e),FULLFILLED);
+                    }
+                }
+            }
+        }
+        if(status === REJECTED){
+            return {
+                then: function(fullfillCallback,rejectCallback) {
+                    return makeThenalbe(rejectCallback(value),REJECTED)
+                }
+            }
+        }
+    }
+
+    var promiseAsyncFunc = function() {
+        var status = PENDING;
+        var fullfillCallback,rejectCallback,value;
+        return {
+            fullfill: function(_value) {
+                if(status !== PENDING) return;
+                value = makeThenalbe(_value,FULLFILLED);
+                status = FULLFILLED;
+                if(typeof fullfillCallback === 'function'){
+                    value.then(fullfillCallback);
+                }
+            },
+            reject: function(error) {
+                if(status !== PENDING) return;
+                value = makeThenalbe(error, REJECTED);
+                if(typeof rejectCallback === 'function'){
+                    value.then(null,rejectCallback);
+                }
+                status = REJECTED;
+            },
+            promise:{
+                then: function(_fullfillCallback,_rejectCallback) {
+                    let newPromiseAsyncFunc = promiseAsyncFunc();
+                    let fullfillFunc = function(value) {
+                        newPromiseAsyncFunc.fulfill(_fullfillCallback(value));
+                    }
+                    let rejectFunc = function(err) {
+                        newPromiseAsyncFunc.fulfill(_rejectCallback(err));
+                    }
+                    if(status === PENDING){
+                        fullfillCallback = fullfillFunc;
+                        rejectCallback = rejectFunc;
+                    }else{
+                        value.then(fullfillFunc,rejectFunc);
+                    }
+                    return newPromiseAsyncFunc.promise;
+                }
+            }
+        }
+    }
+</script>
+
+</html>

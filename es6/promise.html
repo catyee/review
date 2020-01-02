@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // promise的基本结构 构造函数必须接受一个函数作为参数，我们称该函数为handle,handle又包含resolve和reject两个参数，他们是两个函数
+    new Promise(function(resolve,reject){
+        setTimeout(() => {
+            resolve('FULLFILLED');
+        }, 1000);
+    })
+
+    // 首先我们定义一个名为MyPromise的class,它接受一个handle作为参数
+    const PENDING = Symbol('pending');
+    const FULLFILLED = Symbol('fullfilled');
+    const RJECTED = Symbol('rejected');
+    class MyPromise{
+        constructor(handle) {
+            if(typeof handle !== 'function'){
+                throw new Error('MyPromise must accept a function as a parameter');
+            }
+            // 添加状态
+            this._status = PENDING;
+            this._value = undefined;
+            // 添加成功回调的函数队列
+            this._fullfilledQueues = [];
+            // 添加失败回调的函数队列
+            this._rejectQueues = [];
+            try{
+                handle(this._resolve.bind(this),this._reject.bind(this));
+            }catch(err){    
+                this._reject(err);
+            }
+        }
+        _resolve(val) {
+            if(this._status !== PENDING) return;
+            this._status = FULLFILLED;
+            this._value = val;
+        }
+        _reject(err){
+            if(this._status !== PENDING) return;
+            this._status = RJECTED;
+            this._value = err;
+        }
+    }
+
+</script>
+</html>
