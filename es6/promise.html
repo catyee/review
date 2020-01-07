@@ -1,55 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
-    
+
 </body>
 <script>
-    // promise的基本结构 构造函数必须接受一个函数作为参数，我们称该函数为handle,handle又包含resolve和reject两个参数，他们是两个函数
-    new Promise(function(resolve,reject){
-        setTimeout(() => {
-            resolve('FULLFILLED');
-        }, 1000);
-    })
+    // promise的三种状态 pending resolved rejected
+    // 使用
+    //    var promise = new Promise(function(resolve,reject) {
+    //         if(success){
+    //             resolve();
+    //         }else{
+    //             reject();
+    //         }
+    //    })
 
-    // 首先我们定义一个名为MyPromise的class,它接受一个handle作为参数
-    const PENDING = Symbol('pending');
-    const FULLFILLED = Symbol('fullfilled');
-    const RJECTED = Symbol('rejected');
-    class MyPromise{
-        constructor(handle) {
-            if(typeof handle !== 'function'){
-                throw new Error('MyPromise must accept a function as a parameter');
-            }
-            // 添加状态
-            this._status = PENDING;
-            this._value = undefined;
-            // 添加成功回调的函数队列
-            this._fullfilledQueues = [];
-            // 添加失败回调的函数队列
-            this._rejectQueues = [];
-            try{
-                handle(this._resolve.bind(this),this._reject.bind(this));
-            }catch(err){    
-                this._reject(err);
+    function Promise(executor) {
+        var self = this;
+        self.status = 'pending'; // Promise当前的状态
+        self.data = undefined; // Promise的值
+        self.onResolvedCallback = []; // Promise resolved时的回调函数集，因为在Promise结束之前有可能有多个回调添加到它上面
+        self.onRejectedCallback = []; // Promise rejected时的回调函数集，因为在Promise结束之前有可能有多个回调添加到它上面
+        function resolve(value) {
+            if (self.status === 'pending') {
+                self.status = 'resolved';
+                self.data = value;
+                for (var i = 0; i < self.onResolvedCallback.length; i++) {
+                    self.onResolvedCallback[i](value);
+                }
             }
         }
-        _resolve(val) {
-            if(this._status !== PENDING) return;
-            this._status = FULLFILLED;
-            this._value = val;
+        function reject(reason) {
+            if (self.status === 'pending') {
+                self.status = 'rejected';
+                self.data = reason;
+                for (var i = 0; i < self.onRejectedCallback.length; i++) {
+                    self.onRejectedCallback[i](reason);
+                }
+            }
         }
-        _reject(err){
-            if(this._status !== PENDING) return;
-            this._status = RJECTED;
-            this._value = err;
+        try {
+            executor(resolve, reject); // 执行executer并传入相应的参数
+        } catch (e) {
+            reject(e);
+        }
+
+    }
+    Promise.prototype.then = function (onResolved, onRejected) {
+        var self = this;
+        var promise2;
+        onResolved = typeof onResolved === 'function' ? onResolved : function (v) { };
+        onRejected = typeof onRejected === 'function' ? onRejected : function (r) { };
+        if (self.status === 'resolved') {
+            return promise2 = new Promise(function (resolve, reject) {
+                try {
+                    var x = onResolved(self.data);
+                    if (x instanceof Promise) {
+                        x.then(resolve, reject);
+                    }
+                    resolve(x);
+                } catch (e) {
+                    reject(e);
+                }
+            })
+        }
+        if (self.status === 'rejected') {
+            return promise2 = new Promise(function (resolve, reject) {
+                try {
+                    var x = onRejected(self.data);
+                    if (x instanceof Promise) {
+                        x.then(resolve, reject);
+                    }
+                } catch (e) {
+                    reject(e);
+                }
+
+            })
+        }
+        if (self.status === 'pending') {
+            //如果当前的Promise还处于pending状态，我们并不能确定调用onResolved还是onRejected
+            // 只能等到Promise状态确定后，才能确定如何处理
+            // 所以我们需要把我们的两种情况的处理逻辑作为callback放入promise1即this的回调数组里
+            return promise2 = new Promise(function (resolve, reject) {
+                self.onResolvedCallback.push(function (value) {
+                    try {
+                        var x = onResolved(self.data);
+                        if (x instanceof Promise) {
+                            x.then(resolve, reject);
+                        }
+                    } catch (e) {
+                        reject(e);
+                    }
+                })
+                self.onRejectedCallback.push(function (value) {
+                    try {
+                        var x = onRejected(self.data);
+                        if (x instanceof Promise) {
+                            x.then(resolve, reject);
+                        }
+                    } catch (e) {
+                        reject(e);
+                    }
+                })
+            })
         }
     }
-
+    Promise.prototype.catch = function(onRejected) {
+        return this.then(null,onRejected);
+    }
 </script>
+
 </html>

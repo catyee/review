@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function Promise(executor) {
+        var self = this;
+        self.data = undefined;
+        self.status = 'pending';
+        self.onResolvedCallback = [];
+        self.onRejectCallback = [];
+        function resolve(value) {
+            if(self.status === 'pending'){
+                self.status = 'resolved';
+                self.data = value;
+                for(var i = 0; i < onResolvedCallback.length; i++){
+                    onResolvedCallback[i](value);
+                }
+            }
+        }
+        function reject(reason) {
+            if(self.status === 'pending'){
+                self.status = 'rejected';
+                self.data = reason;
+                for(var i = 0; i < onRejectCallback.length; i++){
+                    onRejectCallback[i](reason);
+                }
+            }
+        }
+        try{
+            executor(resolve,reject);
+        }catch(e){
+            reject(e);
+        }
+    }
+    Promise.prototype.then = function(onResolved, onRejected) {
+        let self = this;
+        let promise2;
+        onResolved = typeof onResolved === 'function'?onResolved:function(v){};
+        onRejected = typeof onRejected === 'function'?onRejected:function(r){};
+        if(self.status === 'resolved'){
+            return promise2 = new Promise(function(resolve,reject) {
+                try{
+                    var x = onResolved(self.data);
+                    if(x instanceof Promise){
+                        x.then(resolve,reject);
+                    }
+                    resolve(x);
+                }catch(e){
+                    reject(e);
+                }
+            })
+        }
+        if(self.status === 'rejected'){
+            return promise2 = new Promise(function(resolve,reject) {
+                try{
+                    var x = onRejected(self.data);
+                    if(x instanceof Promise){
+                        x.then(resolve,reject);
+                    }
+                    resolve(x);
+                }catch(e){
+                    reject(e);
+                }
+            })
+        }
+        if(self.status === 'pending'){
+            self.onResolvedCallback.push( new Promise(function(resolve,reject) {
+                try{
+                    var x = onResolved(self.data);
+                    if(x instanceof Promise){
+                        x.then(resolve,reject);
+                    }
+                    resolve(x);
+                }catch(e){
+                    reject(e);
+                }
+            }) )
+            self.onRejectCallback.push( new Promise(function(resolve,reject) {
+                try{
+                    var x = onResolved(self.data);
+                    if(x instanceof Promise){
+                        x.then(resolve,reject);
+                    }
+                    resolve(x);
+                }catch(e){
+                    reject(e);
+                }
+            }) )
+            
+        }
+    }
+    Promise.prototype.catch = function(onRejected) {
+            return this.then(null,onRejected);
+    }
+</script>
+</html>
