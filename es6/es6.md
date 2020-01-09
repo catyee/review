@@ -142,3 +142,25 @@ es6之前，声明变量只能用var，var声明变量其实是不合理的，�
   ```
 
   - Proxy在目标对象之前架设一层拦截，外界对该对象的访问都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。
+  ```
+    var obj = new Proxy({},{
+      get: function(target,propKey,receiver) {
+        console.log(`getting ${propKey}!`);
+        return Reflect.get(target,proxKey,receiver);
+      },
+      set: function (target, propKey, value, receiver) {
+        console.log(`setting ${propKey}!`);
+        return Reflect.set(target, propKey, value, receiver);
+      }
+    })
+  ```
+  上述代码对一个空对象架设了一层拦截，重定义了属性的读取get和设置set
+
+ES6提供Proxy构造函数，用来生成Proxy实例 var proxy = new Proxy(target,handler); target:表示所要拦截的目标对象； handler是一个对象，用来定制拦截行为
+
+- Reflect是ES6引入的一个新的对象，他的主要作用有两点:一是将原生的一些零散分布在Object,Function或者全局函数里的方法如apply，delete，get，set等等，统一整合到Reflect上，这样可以更加方便的统一管理一些原生API，还有就是Proxy可以改写默认的原生API，如果一旦原生API改写就可能找不到了，所以Relfect也可以起到备份原生API的作用，使得即使原生API被改写了之后，也可以在被改写之后的API用上默认的API
+
+
+- for...in和for...of
+所有部署载入了Iterator接口的对象都可以通过for...of遍历，for...in只能遍历对象，数组可以用for...of遍历
+
