@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+
+    function deepClone(obj) {
+        let newObj = new obj.constructor
+        if(obj === null) return null
+        if(typeof obj !== Object) return obj
+        if(obj instanceof Function) return new Function(obj)
+        if(obj instanceof Date) return new Date(obj)
+        if(obj instanceof RegExp) return new RegExp(obj)
+        for(let key in obj) {
+            if(obj.hasOwnProperty(key)) {
+                newObj[key] = deepClone(obj[key])
+            }
+        }
+        return newObj
+    }
+
+ // 检测数据类型四种方式
+ // 1. typeOf 非null的基本数据类型 其他都为Object typeof obj === ‘Object’
+ // 2。 instanceOf 检测引用数据类型 null不可 undefinded不可 基本数据类型除非new创建否则不可 a instanceOf Function
+ // 3. constructor a.conststruction === Number 不能检测undefined和null，且原型被修改之后会随之修改
+ // 4. Object.prototype.toString().call(a) 都可以检测
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // 深拷贝
+    function deepClone(obj) {
+        if(obj === null ) return null
+        if(typeof obj!== 'Object') return obj
+        if(obj instanceof RegExp) {return new RegExp(obj)}
+        if(obj instanceof Date) {return new Date(obj)}
+        if(obj instanceof Function) {return new Function(obj)}
+         // 不直接创建空对象的目的，克隆的结果和原对象保持相同的所属类
+        var newObj = new obj.constructor;
+        for(let key in obj) {
+            if(obj.hasOwnProperty(key)) {
+                newObj[key] = deepClone(obj[key])
+            }
+        }
+    }
+</script>
+</html>

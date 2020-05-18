@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 对象和数组的区别
+    let a = {}, b = '0', c = 0;
+    a[b] = 'what';
+    a[c] = 'ever';
+    console.log(a[b]) // 'ever' 属性名不能重复 数字属性名 == 字符串属性名
+
+    // 实现一个Symbol
+    let a = {}
+    let b = Symbol('1')
+    let c = Symbol('1')
+    a[b] = 'what';
+    a[c] = 'ever'
+    console.log(a[b]) // what 
+
+    // Object.protoType.toString/valueOf
+    let a = {}
+    let b = {
+        n: 1
+    }
+    let c = {
+        m: 2
+    }
+    a[b] = 'what'
+    a[c] = 'ever'
+    console.log(a[b]) // ever a: {[object Object]: "ever"}
+
+</script>
+</html>
