@@ -14,7 +14,7 @@
     function deepClone(obj) {
         let newObj = new obj.constructor
         if(obj === null) return null
-        if(typeof obj !== Object) return obj
+        if(typeof obj !== 'object') return obj
         if(obj instanceof Function) return new Function(obj)
         if(obj instanceof Date) return new Date(obj)
         if(obj instanceof RegExp) return new RegExp(obj)
