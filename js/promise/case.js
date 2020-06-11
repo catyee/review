@@ -14,3 +14,8 @@ p1.then(function(data) {
 }, function(err) {
     console.error(err)
 })
+
+var a = {
+    name: 'xxx'
+}
+export default a;

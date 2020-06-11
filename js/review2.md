@@ -356,7 +356,7 @@
       - 500 服务器执行请求时候出错
       - 503 服务器处于超负载，正在进行停机维护
     - get和post区别
-      - 传输方式：get url传输 post请全体传输
+      - 传输方式：get url传输 post请求体传输
       - post相对更安全一点
       - get请求会被浏览器手动cache post不会
       - get请求多次操作不会有什么影响 post可能会有影响如重复提交表单
@@ -375,7 +375,7 @@
       -  get请求时候，参数会以url sting的形式进行传递，即？后的字符串并以&进行分隔 请求参数为 Query Sting Parameters
       -  post请求会出现两种形式的请求体
          -  Form Data 当发起一次post请求，若未指定content-type则默认content-type为application/x-www-form-urlencoded 即参数以Form Data的形式进行传递不会出现在url中
-         -  Request Payloaf 当发起一次post请求，若content-type为application/json则参数会以request Payload的形式进行传递（数据格式为json）不会出现在请求url中
+         -  Request Payload 当发起一次post请求，若content-type为application/json则参数会以request Payload的形式进行传递（数据格式为json）不会出现在请求url中
          -  服务器为何对表单提交和服务器上传做特殊处理，因为表单提交是名：值键值对的形式，且content-type为application/x-www-form-urlencoded数据格式不固定不一定是键值对的形式，所以服务器无法知道具体的处理方式只能通过原始的数据流的方式进行解析因此文件上传需要使用原生的formData（）进行数据组装，且content-type需要设置为mutipart/formData
 12. fetch axios ajax 
     1.  跨站请求伪造（CSRF）欺骗用户浏览器让其以用户的名义进行操作
@@ -790,6 +790,40 @@
           console.log(reason)
         })
       ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  3.  ts 五一之前
  4.  设计模式
  5.  事件

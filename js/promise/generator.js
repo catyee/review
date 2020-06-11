@@ -6,7 +6,7 @@ function *gen(a) {
     console.log(3)
     return c
 }
-import Promise from './promise'
+//import Promise from './promise'
 // let it = gen('hh')
 // let r1 = it.next('kk') // 传参数无意义
 // console.log(r1, 'r1r1r1')
@@ -35,3 +35,6 @@ getData().then(function(res) {
 }).then(function(v) {
     console.log(v)
 })
+console.log(a, 'jjjjjjjjjj')
+import a from './case'
+console.log(a, 'kkkkkkkkkk')
