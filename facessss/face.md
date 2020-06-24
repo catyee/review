@@ -63,3 +63,6 @@ const MyClass = class Me{
 es5的继承实质是先创造字类的实例对象this，然后再将父类的方法添加到this上面（parent.apply(this)）
 es6的继承机制完全不同，实质是先创造父类的实例对象this（所以必须先调用super方法）然后再用子类的构造函数修改this
 字类必须先调用super才可以使用this关键字否则会报错
+
+
+
