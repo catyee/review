@@ -12,8 +12,8 @@
 - 继承性
     - 可继承的样式: font-size, font-family,color,ul,li,dl,dt,dd
     - 不可继承的样式: border,padding,margin,width,height
-- 优先级（就近原则）：!important > [id > class > tag]   *** !important比内联优先级高 ***
-- 元素选择符的权值: 元素标签（派生选择器）:1 , class选择符:10 , id选择符:100 ,内联样式权值最大为1000
+    - 优先级（就近原则）：!important > [id > class > tag]   *** !important比内联优先级高 ***
+    - 元素选择符的权值: 元素标签（派生选择器）:1 , class选择符:10 , id选择符:100 ,内联样式权值最大为1000
     1. !important声明的样式优先级最高，如果冲突再进行计算
     2. 如果优先级相同，则选择最后出现的样式
     3. 继承得到的样式的优先级最低
@@ -34,6 +34,21 @@
 
 - :after在元素之后添加内容
 
+###### css清除浮动
+浮动会导致父元素高度塌陷
+- 父元素设置固定高度
+- 浮动元素的后面加一个空div 设置该元素 clear:both
+- 父元素增加一个清除浮动的class 伪类
+```
+    .cleafix:after{
+			content:'.';
+			display: block;
+			clear: both;
+			overflow: hidden;
+			height: 0;
+    }
+```
+- 父元素增加overflow:hidden;
 
 
 ###### display值及作用
@@ -220,6 +235,27 @@ display:none; visibility:hidden; 宽高0，透明的0，z-index:-1000
                 - Presto内核 opera7及以上
                 - webkit内核 Safari Chorme
                 - edgeHtml内核 Microsolft Edge
+1、IE浏览器内核：Trident内核，也是俗称的IE内核。
+
+2、Chrome浏览器内核：统称为Chromium内核或Chrome内核，以前是Webkit内核，现在是Blink内核。演进Chromium内核 → Webkit内核 → Blink内核。
+
+3、Firefox浏览器内核：Gecko内核，俗称Firefox内核。
+
+4、Safari浏览器内核：Webkit内核。演进 KHTML->Webkit(WebCore+JSCore)->Webkit2。
+
+5、Opera浏览器内核：最初是自己的Presto内核，后来加入谷歌大军，从Webkit又到了Blink内核。
+
+6、360浏览器、猎豹浏览器内核：IE内核+Chrome双内核；
+
+7、搜狗、遨游、QQ浏览器内核：IE内核（兼容模式）+Webkit（高速模式）；
+
+8、百度浏览器、世界之窗内核：IE内核；
+
+9、2345浏览器内核：好像以前是IE内核，现在也是IE+Chrome双内核了；
+
+10、UC浏览器内核：这个众口不一，UC说是他们自己研发的U3内核，但好像还是基于Webkit和Trident，还有说是基于火狐内核
+
+
 
 ###### html5中的datakist有助于提供文本框自动完成特性
 ###### 水平垂直居中一张背景图 background-position:center
@@ -229,4 +265,75 @@ display:none; visibility:hidden; 宽高0，透明的0，z-index:-1000
 - em 相对于使用em的元素的字体大小 em*字体大小
 - rem相对于根元素html的字体大小 rem*根元素字体
 
+- pc端适配
+- svg canvas
 
+- BFC的应用
+1. 消除margin合并 相邻元素出现margin合并 给其中一个元素添加一个父元素 设置overflow:hidden触发BFC
+2. 父元素里的某个子元素设置浮动之后，子元素脱离了文档流，使得父元素无法包住这个浮动的子元素，给父元素设置overflow:hidden，实际上创建了一个BFC，这决定了height:auto是如何计算的，计算BFC高度时，浮动元素也参与计算，因此，父元素在计算高度时候加入了浮动元素的高度，顺便清除了浮动，使得父元素包裹住了子元素
+除了overflow:hidden还可以给父元素设置absolute float:left，display:inline-block等来创建一个BFC
+
+3. BFC布局规则
+ 1. 内部的块级元素会在垂直方向一个接一地放置
+ 2. 块级元素的垂直距离由margin决定。属于同一个BFC的两个相邻的块级元素会发生margin合并，不属于同一个BFC的两个相邻的块级元素不会发生margin合并
+ 3. 每个元素的margin box的左边，与包含border box的左边相接触 即使存在浮动也是如此
+ 4. BFC的区域不会与float box重叠
+ 5. BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，外面的元素不会影响到容器里面的元素
+ 6. 计算BFC的高度时，浮动元素也参与计算
+
+
+
+ - 块级元素和行内元素的区别
+ 块级元素独占一行，不设置宽度默认宽度100%，可以设置margin，padding
+
+ 行内元素： i span a等
+ - 多个标签在一行显示
+ - 不能直接设置宽高
+ - 行内元素设置内边距时,只有左右方向有效,上下边距会有边距效果,但是对其他元素不会有影响
+ - 左右margin有效的,上下margin无效
+
+ - line-height 属性
+  1. px固定值
+  2. 百分比 相对自身的font-size 继承的不是父元素的百分比而是父元素计算的最终值
+  3. 纯数字 根据自身的font-size计算 后代继承这个数字
+
+- vertical-align 属性
+ 1. 指定行内元素或表格单元格table-cell元素的垂直对齐方式
+ 2. 定义行内元素的基线相对于该元素所在行的基线的垂直对齐,允许指定负长度和百分比
+ 3. 在单元格中定义单元格框中的单元格内容的对齐方式
+
+todo!!!
+- 文字居中问题
+ 1. 单行文字垂直水平居中 line-height: 高度 text-align:center 或父元素display:table 子元素display:table-cell; text-align:center;
+ 2. 多行文字高度不固定   设置padding   或父元素display:table 子元素display:table-cell; text-align:center;
+ 3. 多行文字高度固定  或父元素display:table 子元素display:table-cell; text-align:center;
+
+- 盒子水平垂直居中
+ 1. 已知宽高 2种定位 定位四个方向为0 margin:auto flex布局 定位50% transform: translate(-50%, -50%)
+ 2. 未知宽高 还有flex布局 定位50% transform: translate(-50%, -50%)  子元素display:table-cell; text-align:center;
+
+
+css引入
+- css在head标签中引入时，会阻塞html的渲染，因此页面只有等css下载并解析完成之后才会渲染，最终出现的页面是带有完整样式的。这个过程只会发生一次解析渲染。html解析成DOM树+css解析成CSSOM树+结合生成layout树+计算布局+绘制 但也存在缺点：在css文件下载比较慢时，会出现长时间白屏，但与出现裸奔的页面相比，白屏似乎在体验上更加友好
+- css在body中引入时，会阻塞html的解析，但不会阻塞html的渲染，因此页面在css下载完成之前会将link标签前的html先进行解析渲染，并展现在页面，但由于没有css样式，页面会展示没有样式的页面，即裸奔现象，等到css下载解析完成之后，页面重新解析渲染，展现出带有样式的html，这个过程会导致reflow或repaint；从用户体验来看：css在body标签中引入时，虽然页面可以先展现处理，但由于裸奔现象，会导致极差的用户体验，从性能方面来看，在css与head标签中引入相比，页面在css加载完成后需要重新解析渲染，这个过程带来了极大的性能损耗
+
+- css3
+1. 边框 border-radius:20px;
+2. box-shadow: 10px 10px 5px #888;
+3. border-image: url(border.png) 30 30 round; // 使用图片创建边框
+4. background-origin属性指定了背景图像的位置区域 值可以为content-box padding-box border-box
+5. background-image可以设置多个背景图像
+6. background-clip 背景裁剪属性是从指定位置开始绘制
+7. background-image: linear-gradient(to bottom right, red, yellow);
+8. background-image: linear-gradient(-90deg, red, yellow);
+9. background-image: radial-gradient(red, yellow, green);
+10. text-shadow: 5px 5px 5px #fff000; // 水平阴影 垂直阴影 模糊距离 阴影颜色
+11. 溢出隐藏
+```
+    {
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow: ellipsis;
+    }
+```
+12. 多列 column-count：3

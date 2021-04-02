@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-size: 20px;
+            color: palegreen;
+        }
+        p:only-of-type{
+            color: red;
+        }
+        .test1{
+            margin-bottom: 100px;
+            border: 1px solid rebeccapurple;
+        }
+        .test3{
+            margin-top: 100px;
+            border: 1px solid brown;
+           
+        }
+        .test2{
+            border: 1px solid red;
+        }
+
+    </style>
+</head>
+<!-- 如何利用BFC清除浮动和解决margin合并 -->
+<body>
+   <div>
+    <div class="test1">
+        parent
+        <div>child</div>
+        <p>222</p>
+        <p>333</p>
+        <p>444</p>
+    </div>
+    <div class="test2">
+        <div class="test3">
+            <p>888</p>
+            <p>999</p>
+            <p>000</p>
+        </div>
+    </div>
+   </div>
+</body>
+</html>

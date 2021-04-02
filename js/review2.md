@@ -66,7 +66,7 @@
       function _new(func,...args) {
         let obj = Object.create(func.prototype)
         var res = func.call(obj, ...args)
-        if(typeof res !=== null && typeof res === 'object' || typeof res === 'function') {
+        if( res !=== null && typeof res === 'object' || typeof res === 'function') {
           return res
         }
         return obj
@@ -77,7 +77,7 @@
         var obj = {}
         obj.__proto__ = func.prototype
         var res = func.apply(obj,args)
-         if(typeof res !=== null && typeof res === 'object'|| typeof res === 'function') {
+         if( res !=== null && typeof res === 'object'|| typeof res === 'function') {
           return res
         }
         return obj
@@ -851,3 +851,20 @@ ____________________________________
 4. 周五 复习 简历准备 面试视频
 5. 周六复习 react 小程序 算法 
 6. 周日 react 小程序 算法 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
