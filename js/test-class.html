@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // class MyArray extends Array {
+    //     constructor(...args) {
+    //         console.log(args, 'argsss')
+    //         super(...args)
+    //     }
+    // }
+    // var arr = new MyArray(1,2,3)
+    // console.log(arr, 'arrrrrrrrr')
+    class A {
+        constructor(name) {
+            this.name = name
+        }
+        get a () {
+            return this.name
+        }
+        static c = 3
+        static p() {
+            console.log(333)
+        }
+    }
+    class B extends A{
+        constructor(name) {
+            super(name)
+        }
+        l() {
+            console.log(666)
+        }
+    }
+    console.log(B, 'BBBBBBB')
+    var b = new B('hhh')
+    console.log(b.c, 'cccccccccccccc')
+    console.log(b, 'nnnnnn')
+    console.log(new A('3'))
+    A.p()
+</script>
+</html>
