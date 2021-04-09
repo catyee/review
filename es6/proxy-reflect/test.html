@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var a = [1, 2]
+    var obj = new Proxy(a, {
+        get: function (target, key, receiver) {
+            console.log(`getting${key}!`)
+            // return Reflect.get(target,key,receiver)
+            return 999
+        },
+        set: function (target, key, value, receiver) {
+            console.log(`setting${key}`)
+            return Reflect.set(target, key, value, receiver)
+        }
+    })
+    obj[0]
+    // obj.count = 1
+    // ++ obj.count
+
+    var obj = {
+        get foo() { return this.bar(); },
+        bar: function () { }
+    }
+    var wrapper = {}
+    // 下面语句会让 this.bar()
+    // 变成调用 wrapper.bar()
+    Reflect.get(obj, "foo", wrapper);
+</script>
+
+</html>
