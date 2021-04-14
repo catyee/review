@@ -1,5 +1,5 @@
 1. 模块化 commonjs及es6module区别 exports和module.exports import必须放在页面开头吗
-- commonjs 
+- commonjs  加载是同步的 只有加载完成才能加载后面的
     - 模块可以多次加载，只会在第一次加载时运行一次，运行结果会被缓存下来，要再次运行模块，必须清除缓存
     - 同步加载 模块加载会阻塞后面代码的执行
     - 用于服务器环境

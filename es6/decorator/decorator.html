@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    class Math {
+        @log
+        add(a, b) {
+            return a + b;
+        }
+    }
+    function log(target, name, descriptor) {
+        var oldValue = descriptor.value;
+        descriptor.value = function () {
+            console.log(`Calling "${name}" with`, arguments);
+            return oldValue.apply(null, arguments);
+        };
+        return descriptor
+
+    }
+</script>
+
+</html>

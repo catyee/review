@@ -95,6 +95,7 @@
                         if (x instanceof Promise) {
                             x.then(resolve, reject);
                         }
+                        resolve(x);
                     } catch (e) {
                         reject(e);
                     }
