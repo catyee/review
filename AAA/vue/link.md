@@ -18,4 +18,6 @@ https://segmentfault.com/a/1190000038848131
 https://blog.csdn.net/weixin_40599109/article/details/110938941
 https://blog.csdn.net/xllily_11/article/details/102674766
 
+自学前端，已经学完html css js原生，是否可以跳过jq直接专攻vue，vue有什么书推荐么？ - 暴走的回答 - 知乎
+https://www.zhihu.com/question/398391973/answer/1256455941
 element相关 如拖拽
