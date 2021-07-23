@@ -37,5 +37,27 @@ git
 9.数组的去重和数组的扁平化处理
 10.页面重构和重绘
 11. computed为何没有deep:true 因为computed用在模板中，模板会渲染会调用JSON.stringify()默认会对对象都进行求值？
-12 vuex原理 路由 路由的实现 懒加载实现 事件原理 设计模式 生命周期 v-model原理 组件v-model实现 vue.use原理 作用于插槽 key 优化 dom-diff keep-alive理解 异步组件 watch，computed，methods区别 mixin原理 模板编译原理
+
+
+12 vuex原理 路由 路由的实现 懒加载实现 
+事件原理 设计模式 生命周期 v-model原理 组件v-model实现
+
+ vue.use原理 作用于插槽 key 优化 dom-diff keep-alive理解 
+ 
+ 异步组件 
+ watch，computed，methods区别 mixin原理 模板编译原理
 dom diff及优化
+
+
+生命周期 完成
+初始化   完成
+模板编译
+dom渲染
+dom diff
+key
+
+事件
+设计模式
+
+判断相等二叉树
+用js实现一个双向链表

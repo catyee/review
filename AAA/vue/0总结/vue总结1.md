@@ -1,5 +1,5 @@
-# computed原理this.$watch原理 this.$nextTick原理 extend原理 过滤器原理 组件化原理 指令原理 methods原理 props原理 this.$mount原理
 
+*************************vue的实例方法和全局方法******************************************************
 
 下面我们来回顾一下watcher观察数据的过程。状态通过Observer转换成响应式之后，每当触发getter时，会从全局的某个属性中获取watcher实例并将它添加到数据的依赖列表中。watcher在读取数据之前，会先将自己设置到全局的某个属性中。而数据被读取会触发getter，所以会将watcher收集到依赖列表中。收集好依赖后，当数据发生变化时，会向依赖列表中的watcher发送通知。
 
@@ -252,7 +252,7 @@ import vMessage from './components/Message/index'
 Vue.use(vMessage)
 
 
-# Vue.component 那么子组件呢？？？
+# Vue.component:全局注册组件   局部注册组件：options传递components选项
 使用：Vue.component(id, [definition]) 注册或获取全局组件。注册组件时，还会自动使用给定的id设置组件的名称。
 
 // 注册组件，传入一个扩展过的构造器
@@ -269,3 +269,53 @@ var MyComponent = Vue.component('my-component')
 这里我们在Vue.options中新增了components属性用于存放组件，并在Vue.js上新增了component方法，它接收两个参数：id和definition。
 
 如果发现definition参数是Object类型，则调用Vue.extend方法将它变成Vue的子类，使用Vue.component方法注册组件；如果选项对象中没有设置组件名，则自动使用给定的id设置组件的名称。
+
+# Vue.directive: 注册或获取全局指令 对普通DOM元素进行底层操作时，会用到自定义指令
+Vue.directive(id, [definition])
+用法：注册或获取全局指令
+// 注册
+Vue.directive('my-directive', {
+  bind: function() {},
+  inserted: function() {},
+  update: function() {},
+  componentUpdated: function() {},
+  unbind: function() {}
+})
+
+// 注册(指令函数)
+Vue.directive('my-directive',function() {
+  // 这里将会被bind和update调用
+})
+
+// getter方法，返回已注册的指令
+var myDirective = Vue.directive('my-directive')
+
+原理：指令保存至options.directives上
+
+# Vue.filter= 注册或获取全局过滤器
+Vue.filter(id, [definition])
+// 注册
+Vue.filrer('my-filter', function(value){
+    // 返回处理后的值
+})
+
+// getter方法,返回已注册的过滤器
+var myFilter = Vue.filter('my-filter')
+
+# Vue.use
+用法：
+Vue.use(plugin) plugin为Object或Function
+安装vue插件。如果插件是一个对象，必须提供install方法。如果插件是一个函数，它会作为install方法。调用install方法时，会将Vue作为参数传入。
+install方法被同一个插件多次调用时，插件也只会被安装一次。
+
+Vue.use的作用是注册插件，此时只需要调用install方法并将Vue作为参数传入即可。
+但在细节上其实有两部分逻辑需要处理：一部分是插件的类型，可以是install方法，也可以是一个包含install方法的对象。 另一部分逻辑是插件只能被安装一次，保证插件列表中不能有重复的插件。
+将插件添加到installedPlugins
+
+# Vue.mixin
+用法：Vue.mixin(mixin) mixin是一个对象
+全局注册一个混入，影响注册之后创建的每个Vue实例，因为该方法会更改Vue.options属性，之后创建的每个实例都会用到该属性，所以会影响。
+
+# Vue.compile
+用法：Vue.compile(template) 参数是String类型
+编译模板字符串，并返回包含渲染函数的对象。只有在完整版中才有效。
