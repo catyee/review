@@ -1,4 +1,6 @@
+https://vue3js.cn/interview/vue/diff.html#%E4%B8%80%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88
 
+https://vue3js.cn/interview/vue/diff.html#%E4%BA%8C%E3%80%81%E6%AF%94%E8%BE%83%E6%96%B9%E5%BC%8F
 vue书  
 视频 pdf 
 博客
@@ -61,3 +63,23 @@ key
 
 判断相等二叉树
 用js实现一个双向链表
+
+周一
+
+
+vue-router
+vuex
+博客
+周三
+
+vue3
+ts
+
+
+js
+http
+
+算法
+
+node
+总体
