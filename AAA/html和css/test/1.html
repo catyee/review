@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .hello{
+            /* display: none; */
+            visibility: hidden;
+           /* opacity: 0; */
+        }
+        .hello div{
+            /* 当值用于表格元素 此值可以删除一行或一列 但是不会影响表格的布局，被行或列占据的空间会留给其他内容使用。如果此值用到其他的元素上，会呈现为hidden  */
+            /* visibility: collapse;  */
+        }
+    </style>
+</head>
+<body>
+    <div class="hello" >
+        hello
+        <div>world</div>
+    </div>
+</body>
+</html>
+<script>
+    var hello = document.getElementsByClassName('hello')[0]
+    hello.addEventListener('click',function () {
+        alert(1)
+    })
+</script>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .outer{
+            width: 400px;
+            height: 600px;
+            background-color: hotpink;
+            /* table布局 */
+             display: table-cell;
+             text-align: center;
+            vertical-align: middle; 
+            /* position: relative;
+            /* flex布局 */
+            /* display: flex;
+            align-items: center;
+            justify-content: center; */
+        }
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color: mediumaquamarine;
+        }
+        .box_nowidth{
+            color: mediumblue;
+        }
+        .box1{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+        .box2{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -50px;
+            margin-top: -50px;
+        }
+        .box3{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .box4{
+            /* display: inline-block; */
+            margin: 0 auto;
+
+        }
+        .box5{
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="outer">
+        <!-- <div class="box box1">已知宽高进行水平垂直居中方法1</div> -->
+        <!-- <div class="box box2">已知宽高进行水平垂直居中方法2</div> -->
+        <!-- <div class="box_nowidth box3">不需要知道宽高水平垂直居中方法3</div> -->
+        <!-- <div class="box_nowidth box4">不需要知道宽高水平垂直居中方法4</div> -->
+        <div class="box_nowidth box5">flex
+
+        </div>
+       
+    </div>
+</body>
+</html>

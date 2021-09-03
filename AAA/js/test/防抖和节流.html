@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            height: 500vh;
+            width: 100%;
+            background-color: burlywood;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">2222222</div>
+    <script>
+
+        function debounce(fun,delay) {
+            return function(args) {
+                    clearTimeout(fun.id)
+                    fun.id = window.setTimeout(()=> {
+                            fun.call(this,args)
+                    },delay)
+            }
+        }
+        const throttle = function throttle(func,wait) {
+        wait = wait || 300
+        let timer = null,previous = 0;
+        return function (...parms) {
+                let now = +new Date(), // 时间戳
+                remaining = wait - (now - previous),
+                result;
+                if(remaining <=0 ){
+                 result = func.call(this,...parms)
+                 previous = +new Date()
+                 timer = clearTimeout(timer)
+                }else if(!timer) {
+                        timer = setTimeout(() => {
+                                func.call(this, ...parms);
+                                previous = +new Date()
+                                timer = clearTimeout(timer)
+                        }, remaining)
+                }
+                return result
+  }
+}
+        let scrollDebounce = throttle(function (param) {
+                console.log('触发...', param)
+        },1000)
+        window.onscroll = function (params) {
+   
+            scrollDebounce('test')
+        }
+    </script>
+</body>
+</html>

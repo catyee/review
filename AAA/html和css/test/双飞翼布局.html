@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .header {
+        height: 40px;
+        background: lightblue;
+        }
+        .footer {
+            height: 100px;
+            background: lightcoral;
+        }
+        .center {
+            float: left;
+            width: 100%;
+            height: 500px;
+            background: lightgray;
+        }
+        .left {
+            float: left;
+            margin-left: -100%;
+            width: 200px;
+            height: 500px;
+            background: lightpink;
+        }
+        .right {
+            float: left;
+            margin-left: -300px;
+            width: 300px;
+            height: 500px;
+            background: lightgreen; 
+        }
+        .clearfix::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+        .main{
+            /* 双飞翼这里不需要处理 */
+            /* padding-left: 200px;
+            padding-right: 300px; */
+        }
+        .inner{
+            /* 为了突出显示 inner 元素，给它加上了 height 和 border 以及 上margin */
+            height: 300px;
+            border: 1px solid red;
+            margin-top: 10px;
+            margin-left: 200px;
+            margin-right: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">头部</div>
+    <div class="main clearfix">
+        <!-- 与圣杯布局的区别 -->
+        <div class="center ">
+            <div class="inner">中间自适应</div>
+        </div>  <!-- 因为相对来说，center中为主要内容，所以写前边，这样也有利于SEO -->
+        <div class="left">左列定宽</div>
+        <div class="right">右列定宽</div>
+    </div>
+    <div class="footer">底部</div>
+</body>
+</html>

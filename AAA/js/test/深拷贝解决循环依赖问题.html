@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // function deepClone(target) {
+        //     let newObj = {}
+        //     if(target === null) return target
+        //     if(typeof target !== 'object') return target
+        //     for(let i in target) {
+        //         newObj[i] = deepClone(target[i])
+        //     }
+        //     return newObj
+        // }
+        function deepClone(target) {
+        const map = new Map()
+        function clone() {
+            if(target === null || typeof target !== 'object') {
+            return target
+            }
+            var result = Array.isArray(target) ? [] : {}
+            if(map.get(target)) {
+                return map.get(target)
+            }
+
+            map.set(target, result)
+            for(let key in target) {
+                if(target.hasOwnProperty(key)) {
+                    result[key] = clone(result[key])
+                
+                }
+            }
+        return result
+      }
+       return clone(target)
+     }
+        let obj = {
+            name: 'zhufeng',
+            age: 12,
+            boo: true,
+            n: null,
+            m: undefined,
+            sy: Symbol('xx'),
+            big: 10n,
+            child: {
+                ele: 'body',
+                x: 100
+            },
+            arr: [10, 20, 30],
+            reg: /^\d+$/,
+            fn: function () {
+                console.log(this.name);
+            },
+            time: new Date(),
+            err: new Error()
+        };
+        obj.target = obj
+        var newObj = deepClone(obj)
+        console.log(newObj,33333333333333)
+    </script>
+</body>
+</html>

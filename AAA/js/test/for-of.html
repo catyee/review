@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // function* foo(params) {
+        //     yield 1;
+        //     yield 2;
+        //     yield 3;
+        // }
+        // for(let o of foo()) {
+        //     console.log(o) // 1
+        //     break
+        // }
+
+        // function* fibonacci() { // 一个生成器函数
+        //     let [prev, curr] = [0, 1];
+        //     for (;;) { // while (true) {
+        //         [prev, curr] = [curr, prev + curr];
+        //         yield curr;
+        //     }
+        // }
+
+        // for (let n of fibonacci()) {
+        //     console.log(n);
+        //     // 当n大于1000时跳出循环
+        //     if (n >= 1000)
+        //         break;
+        // }
+        var obj = {x:1,y:2,z:3}
+        obj[Symbol.iterator] = function() {
+                return {
+                        index:0,
+                        next: function() {
+                                let keys = Object.keys(obj)
+                                if(this.index < keys.length) {
+                                        let key = keys[this.index]
+                                        this.index ++ 
+                                        return {value:obj[key],done:false}
+                                }
+                                return {value:undefined, done:true}
+                        }
+                }
+        }
+        // var obj = [1,2,3] //可以使用扩展运输符 ...[1,2,3]
+       // console.log(...obj)
+       var str = 'as678'
+       for(let i of str) {
+           console.log(i, 'kkkkkkkkkkkkk')
+       }
+    </script>
+</body>
+</html>
