@@ -1,6 +1,15 @@
 https://vue3js.cn/interview/vue/diff.html#%E4%B8%80%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88
 
-https://vue3js.cn/interview/vue/diff.html#%E4%BA%8C%E3%80%81%E6%AF%94%E8%BE%83%E6%96%B9%E5%BC%8F
+https://zhuanlan.zhihu.com/p/102442557
+
+https://mp.weixin.qq.com/s/Fqm1ZWAdWtmPvlpMRH28aw
+https://xblcity.github.io/blog/js-base/eventloop.html
+
+
+
+
+
+
 vue书  
 视频 pdf 
 博客

@@ -21,7 +21,7 @@
 - constructor 可以检测除了null undefined 但是原型可以被改写（如何改写？）改写之后就不准确了
  (1).constructor === Number => true可以检测
  ('1').constructor === String => true 可以检测
- ('true').constructor === Boolean  => true 可以检测
+ (true).constructor === Boolean  => true 可以检测
  (null).constructor=== Null  => 报错
  (undefined).constructor === Udefined => 报错
  (function).constructor === Function => true 可以检测

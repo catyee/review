@@ -196,7 +196,7 @@ Proxy.revocable方法返回一个对象，该对象的proxy属性是Proxy实例�
 // 上面代码中，一旦proxy代理target.m，后者内部的this就是指向proxy，而不是target。
 
 
-此外，有些原生对象的内部属性，只有通过正确的this才能拿到，所以 Proxy 也无法代理这些原生对象的属性。
+**此外，有些原生对象的内部属性，只有通过正确的this才能拿到，所以 Proxy 也无法代理这些原生对象的属性。**
 
 const target = new Date();
 const handler = {};
