@@ -1,9 +1,20 @@
-https://vue3js.cn/interview/vue/diff.html#%E4%B8%80%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88
+
 
 https://zhuanlan.zhihu.com/p/102442557
 
 https://mp.weixin.qq.com/s/Fqm1ZWAdWtmPvlpMRH28aw
 https://xblcity.github.io/blog/js-base/eventloop.html
+
+https://juejin.cn/post/6989422484722286600#heading-13
+https://vue3js.cn/interview/vue/diff.html#%E4%B8%80%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88
+https://juejin.cn/post/6978868869343477791
+
+
+
+回顾算法
+http几个问题
+node
+看链接+复习
 
 
 
