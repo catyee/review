@@ -17,7 +17,12 @@ node
 看链接+复习
 
 
+1. 项目完成 + http + node + 输入url
+2. js + webpack + es6 + css
 
+3. vue + css
+4. 
+5. 项目+简历
 
 
 

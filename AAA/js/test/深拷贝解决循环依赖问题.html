@@ -39,6 +39,53 @@
       }
        return clone(target)
      }
+
+     function deepClone3(target) {
+    const map = new WeakMap()
+        function clone (target) {
+            if (target!== null && typeof target === 'object') {
+                let cloneTarget = Array.isArray(target) ? [] : {};
+                if (map.get(target)) {
+                    console.log(map.get(target),'ggggggggggggggg')
+                    return map.get(target)
+                }
+                map.set(target,cloneTarget)
+                for (const key in target) {
+                    cloneTarget[key] = clone(target[key]);
+                }
+                return cloneTarget;
+            } else {
+                return target;
+            }
+        }
+        return clone(target)
+};
+function deepClone1(obj, hash = new WeakMap()) {
+    console.log(hash,'ssssssssssssss')
+  if (obj === null) return obj; // 如果是null或者undefined我就不进行拷贝操作
+  if (obj instanceof Date) return new Date(obj);
+  if (obj instanceof RegExp) return new RegExp(obj);
+  // 可能是对象或者普通的值  如果是函数的话是不需要深拷贝
+  if (typeof obj !== "object") return obj;
+  console.log(hash.get(obj),obj,hash,8888888888)
+  // 是对象的话就要进行深拷贝
+  if (hash.get(obj)) {
+    console.log('bbbbbbbbbbbbbbbbbbbb')
+    return hash.get(obj);
+  }
+  let cloneObj = new obj.constructor();
+  console.log(cloneObj, 'oooooooooooo')
+  // 找到的是所属类原型上的constructor,而原型上的 constructor指向的是当前类本身
+  hash.set(obj, cloneObj);
+  //console.log(hash, 'hhhhhhhhhhhhhh')
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      // 实现一个递归拷贝
+      cloneObj[key] = deepClone(obj[key], hash);
+    }
+  }
+  return cloneObj;
+}
         let obj = {
             name: 'zhufeng',
             age: 12,
@@ -60,8 +107,9 @@
             err: new Error()
         };
         obj.target = obj
-        var newObj = deepClone(obj)
-        console.log(newObj,33333333333333)
+        var newObj = deepClone1(obj)
+        var newObj1 = deepClone3(obj)
+        console.log(newObj,33333333333333,newObj1)
     </script>
 </body>
 </html>
