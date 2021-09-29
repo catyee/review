@@ -2,11 +2,11 @@
 watcher dirty属性，dirty为true重新计算，计算属性依赖的属性发生变化，dirty置为true，计算一次计算属性的值，如果发生变化就主动通知组件watcher进行重新渲染
 
 # 2. watch原理
-new Watcher 全局存储watcher，get读取数据的时候手机依赖，watch第一个参数可以是字符串也可以是函数，函数作为get函数，watch的数据变化时，重新执行操作
+new Watcher 全局存储watcher，get读取数据的时候收集依赖，watch第一个参数可以是字符串也可以是函数，函数作为get函数，watch的数据变化时，重新执行操作
 deep:true循环依赖
 
 # 3. nextTick原理 为什么异步更新
-vue中数据更新会通知watcher，触发虚拟dom更新渲染，vue中组件的所有状态发送到同一个Watcher，然后虚拟DOM会对整个组件进行比对，更改DOM。也就是说同一轮事件循环中两个数据发生了变化组件Watcher会收到两份通知，从而进行两侧渲染，这是不需要的。虚拟DOM会对整个组件进行渲染，所以只需要等待所有的状态都修改完毕，一次性将整个组件的DOM渲染到最新即可。
+vue中数据更新会通知watcher，触发虚拟dom更新渲染，vue中组件的所有状态发送到同一个Watcher，然后虚拟DOM会对整个组件进行比对，更改DOM。也就是说同一轮事件循环中两个数据发生了变化组件Watcher会收到两份通知，从而进行两次渲染，这是不需要的。虚拟DOM会对整个组件进行渲染，所以只需要等待所有的状态都修改完毕，一次性将整个组件的DOM渲染到最新即可。
 
 vue内部对异步队列尝试使用Promise.then MutationObserver和setImmediate,如果执行环境不支持，则采用setTimeout(fn,0)支持
 

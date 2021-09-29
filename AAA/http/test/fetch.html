@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        fetch('http://api.saas.dianwutong.com/ems/rest/power/room/page?token=12ba7703d88c717e22e2fae0285ed76a&page=1&pageSize=20&keyword=&employeeId=19&roleId=10&t=35306924', {
+            mode: 'no-cors'
+        }).then(res => {
+            console.log(res, 'error')
+            if(res.ok) {
+                return res.json()
+            }else {
+                //console.log(res.json())
+            }
+        }).then(res1 => {
+            console.log(res1, 'r2222222222222222')
+        }).catch(e => {
+            console.log(e, 'eeeeeeeeeeeeeeeeeeeeeee')
+        })
+    </script>
+</body>
+</html>
