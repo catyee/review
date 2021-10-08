@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let obj = {
+            name: 'zhufeng',
+            age: 12,
+            boo: true,
+            n: null,
+            m: undefined,
+            sy: Symbol('xx'),
+            big: 10n,
+            child: {
+                ele: 'body',
+                x: 100
+            },
+            arr: [10, 20, 30],
+            reg: /^\d+$/,
+            fn: function () {
+                console.log(this.name);
+            },
+            time: new Date(),
+            err: new Error()
+        };
+        // 深拷贝
+        function deepClone(obj) {
+            let weakMap = new WeakMap()
+            function clone(target) {
+                if (target instanceof Date) return new Date(target);
+                if (target instanceof RegExp) return new RegExp(target);
+               if(target !== null && typeof target === 'object') {
+                   let cloneTarget = Array.isArray(target)? []:{}
+                   if(weakMap.get(target)) {
+                       return weakMap.get(target)
+                   }
+                   weakMap.set(target,cloneTarget)
+                   for(let key in target) {
+                       cloneTarget[key] = clone(target[key])
+                   }
+                   return cloneTarget
+               }else {
+                   return target
+               }
+                
+            }
+            return clone(obj)
+        }
+        obj.obj = obj
+
+        let obj2 = {
+            name: 33
+        }
+        console.log(deepClone(obj),deepClone(obj2))
+
+        // set map weakSet weakMap
+
+        // set接受参数 数组或类数组 不可重复
+        // set 加入值不会发生类型转换 所以 s和 "s"是两个不同的值，set内部判断两个值是否不同，类似于 精确相等运算符 ===  ，主要区别是NaN等于自身，而相等运算符NaN不等于自身
+
+        Set.prototype.constructor == Set
+        Set.prototype.size  成员总数
+        add 添加值
+        has 返回一个布尔值表示是否是set的成员
+        clear 清空
+        delete 删除
+
+        Array.from 可以把set结构转为数组
+
+        遍历：keys，values，entries，forEach
+
+        扩展运算符（...）内部使用for...of循环，所以也可以用于Set结构。
+
+        数组的map和filter方法也可以用于Set了。
+
+        let a = new Set([1, 2, 3]);
+        let b = new Set([4, 3, 2]);
+
+        // 并集
+        let union = [...a, ...b]
+        // 交集
+        let intersect = new Set(...a).filter(x => b.has(x))
+
+        // 差集
+        let difference = new Set(...a).filter(x => !b.has(x))
+
+
+
+        // weakSet 成员只能是对象，而不是其他类型的值
+        // weakSet中的对象是弱引用，即垃圾回收机制不考虑weakSet对该对象的引用，也就是说如果其他对象都不再引用该对象，那么垃圾回收机制会自动回收该对象所占的内存，不考虑该对象还存在于weakMap中，这个特点意味着，无法引用weakSet的成员，因此weakSet是不可遍历的
+
+        add，delete，has 没有size属性，无法遍历
+
+        用途：存储DOM节点，不用担心内存泄漏
+
+        初始化接受数组或类数组 
+        var a = [[1,2], [3,4]];
+        var ws = new WeakSet(a);
+
+
+
+        map
+        键值对，键不仅限于字符串，各种类型的值都可以
+
+        let map = new Map([
+            [1, 'one'],
+            [2, 'two'],
+            [3, 'three'],
+        ]);
+
+        [...map.keys()]
+        // [1, 2, 3]
+
+        [...map.values()]
+        // ['one', 'two', 'three']
+
+        [...map.entries()]
+        // [[1,'one'], [2, 'two'], [3, 'three']]
+
+        [...map]
+        // [[1,'one'], [2, 'two'], [3, 'three']]
+
+
+        weakMap 只接受对象最为键名，弱引用
+
+    </script>
+</body>
+</html>

@@ -20,7 +20,9 @@
         function debounce(fun,delay) {
             return function(args) {
                     clearTimeout(fun.id)
-                    fun.id = window.setTimeout(()=> {
+                    console.log(this,222222222)
+                    fun.id = window.setTimeout(() => {
+                        console.log(this, '00000000')
                             fun.call(this,args)
                     },delay)
             }
@@ -46,9 +48,14 @@
                 return result
   }
 }
-        let scrollDebounce = throttle(function (param) {
-                console.log('触发...', param)
-        },1000)
+
+       let obj = {
+           name: 33,
+           func: function (param) {
+                console.log('触发1...', param,this.name)
+        }
+       }
+        let scrollDebounce = debounce(obj.func,1000)
         window.onscroll = function (params) {
    
             scrollDebounce('test')
